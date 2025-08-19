@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>حاسبة الرافعة المالية الآمنة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #222;
+      text-align: center;
+      padding: 40px;
+      direction: rtl;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 حاسبة الرافعة المالية الآمنة</h2>
+    <label>الهامش المبدئي (%)</label>
+    <input type="number" id="imr" placeholder="مثال: 2">
+    <br>
+    <label>هامش الحِفاظ (%)</label>
+    <input type="number" id="mmr" placeholder="مثال: 1">
+    <br>
+    <button onclick="calculate()">احسب</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      let imr = parseFloat(document.getElementById("imr").value);
+      let mmr = parseFloat(document.getElementById("mmr").value);
+
+      if (isNaN(imr) || isNaN(mmr)) {
+        document.getElementById("result").innerHTML = "⚠️ رجاءً أدخل القيم بشكل صحيح.";
+        return;
+      }
+
+      let diff = imr - mmr;
+      let leverage = "";
+
+      if (diff <= 1) {
+        leverage = "الرافعة الآمنة: 5x – 7x ✅ (مخاطر عالية لو زادت)";
+      } else if (diff <= 2) {
+        leverage = "الرافعة الآمنة: حتى 10x ⚠️";
+      } else if (diff <= 3) {
+        leverage = "الرافعة الآمنة: حتى 20x 👍";
+      } else {
+        leverage = "الرافعة الآمنة: 30x أو أكثر 🚀 (مرونة كبيرة)";
+      }
+
+      document.getElementById("result").innerHTML = 
+        `الفرق = ${diff.toFixed(2)}%<br>${leverage}`;
+    }
+  </script>
+</body>
+</html>
